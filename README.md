@@ -203,6 +203,31 @@ You will get a response like below (note that the response has been hardcoded in
 ]
 ```
 
+Running the model locally (without deploying it)
+
+If a project is package as an MLFlow model it can be predicted using mlflow programatically, as follows:
+
+- Install/create the conda environment related to the model as follows:
+```
+conda env create -f conda.yaml
+``` 
+
+- Activate the conda env, then run the following python script in python terminal for example (note that in order to be able to download the model related to the RUN_ID you have to export the MLFLOW_TRACKING_URI env variable pointing to the MLFlow server running where the run has been stored, see previous steps):
+
+```
+import mlflow
+logged_model = 'runs:/${PUT_YOUR_MODEL_RUN_ID_HERE}/fonduer_emmental_model'
+
+# Load model as a PyFuncModel.
+loaded_model = mlflow.pyfunc.load_model(logged_model)
+
+# Predict on a Pandas DataFrame.
+import pandas as pd
+data = {}
+loaded_model.predict(pd.DataFrame(data))
+``` 
+you should see the same output as before when deploying the model locally.
+
 # Docker (experimental)
 
 MLflow should be v1.8.0 or higher (mlflow/mlflow#2691, mlflow/mlflow#2699).
