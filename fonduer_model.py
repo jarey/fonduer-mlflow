@@ -15,7 +15,7 @@ from mlflow.models import Model
 from mlflow.utils.environment import _mlflow_conda_env
 from mlflow.utils.file_utils import _copy_file_or_tree
 from mlflow.utils.model_utils import _get_flavor_configuration
-from pandas import DataFrame
+from pandas import DataFrame, Timestamp, Series, Categorical
 from scipy.sparse import csr_matrix
 from snorkel.labeling.model import LabelModel
 
@@ -87,13 +87,23 @@ class FonduerModel(pyfunc.PythonModel):
         :return: Pandas DataFrame containing the output from :func:`_classify`, which
             depends on how it is implemented by a subclass.
         """
-        df = DataFrame()
-        for index, row in model_input.iterrows():
-            output = self._process(
-                row["html_path"], row["pdf_path"] if "pdf_path" in row.keys() else None
-            )
-            output["html_path"] = row["html_path"]
-            df = df.append(output)
+        #df = DataFrame()
+        #for index, row in model_input.iterrows():
+        #    output = self._process(
+        #        row["html_path"], row["pdf_path"] if "pdf_path" in row.keys() else None
+        #    )
+        #    output["html_path"] = row["html_path"]
+        #    df = df.append(output)
+        df = DataFrame(
+            {
+                "A": 1.0,
+                "B": Timestamp("20130102"),
+                "C": Series(1, index=list(range(4)), dtype="float32"),
+                "D": np.array([3] * 4, dtype="int32"),
+                "E": Categorical(["test", "train", "test", "train"]),
+                "F": "foo",
+            }
+        )
         return df
 
     def _process(self, html_path: str, pdf_path: Optional[str] = None) -> DataFrame:
