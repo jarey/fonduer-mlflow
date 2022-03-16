@@ -104,7 +104,7 @@ mlflow run ./ -P conn_string=postgresql://postgres:secure_pass_here@localhost:54
 
 ## Check the trained model
 
-Two trained Fonduer models will be saved at `./fonduer_emmental_model` and `./fonduer_label_model with the following contents.
+Two trained Fonduer models will be saved at `./fonduer_emmental_model` and `./fonduer_label_model` with the following contents.
 
 ```bash
 $ tree fonduer_emmental_model
@@ -148,9 +148,9 @@ We pass the --port flag to set deploying port to 5001 since the 5000 port is alr
 ```
 mlflow models serve -m fonduer_emmental_model --port 5001 -w 1
 ```
-
+or
 ```
-$ mlflow models serve -m fonduer_label_model --port 5001 -w 1
+mlflow models serve -m fonduer_label_model --port 5001 -w 1
 ```
 
 or alternatively,
