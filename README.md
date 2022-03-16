@@ -39,6 +39,16 @@ Also, a developer is supposed to create `fonduer_subclasses.py` and `fonduer_lfs
 
 ## Prepare
 
+Create a new conda virtual environment in order to install all needed dependencies:
+```
+conda create -n myvirtualenv python=3.8
+conda activate myvirtualenv
+pip install --upgrade pip
+pip install mlflow
+pip install psycopg2-binary
+```
+
+
 Download data.
 
 ```
